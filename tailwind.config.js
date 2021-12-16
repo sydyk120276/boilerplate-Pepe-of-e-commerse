@@ -1,13 +1,15 @@
 module.exports = {
-  purge: [
-    './client/**/*.html',
-    './client/**/*.js',
-    './client/**/*.jsx'
-  ],
+  purge: ['./client/**/*.html', './client/**/*.js', './client/**/*.jsx'],
   darkMode: false,
   theme: {
-    extend: {}
+    container: {
+      center: true
+    }
   },
-  variants: {},
+  variants: {
+    extend: {
+      backgroundColor: ['active']
+    }
+  },
   plugins: []
 }

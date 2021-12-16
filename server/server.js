@@ -4,6 +4,7 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import favicon from 'serve-favicon'
 import io from 'socket.io'
+import axios from 'axios'
 
 import config from './config'
 import mongooseService from './services/mongoose'
@@ -11,6 +12,16 @@ import mongooseService from './services/mongoose'
 import Html from '../client/html'
 
 const { resolve } = require('path')
+
+const { readFile, writeFile } = require('fs').promises
+
+// const readFiled = () => {
+//   return readFile(`${__dirname}/data/data.json`, 'utf8')
+// }
+
+const writeFiled = (rates) => {
+  writeFile(`${__dirname}/data/rate.json`, JSON.stringify(rates), 'utf8')
+}
 
 const server = express()
 const httpServer = http.createServer(server)
@@ -26,6 +37,66 @@ const middleware = [
 ]
 
 middleware.forEach((it) => server.use(it))
+
+server.get('/api/v1/products', async (req, res) => {
+  const result = await readFile(`${__dirname}/data/data.json`, 'utf-8')
+    .then((data) => JSON.parse(data))
+    .catch(() => [])
+  res.json(result.slice(0, 50))
+})
+
+server.get('/api/v1/rates', async (req, res) => {
+  const result = await axios('https://api.exchangerate.host/latest?base=USD&symbols=USD,EUR,CAD')
+    .then(({ data }) => {
+      writeFiled(data.rates)
+      return data.rates
+    })
+    .catch(async () => {
+      try {
+        const rate = await readFile(`${__dirname}/data/rate.json`, 'utf-8').then((text) => JSON.parse(text))
+        return rate
+      } catch (err) {
+        console.log(err)
+      }
+      return { USD: 1 }
+    })
+  res.json(result)
+})
+
+function sortProductsList(arrayOfProducts, sortType, direction) {
+  switch (sortType) {
+    case 'name': {
+      arrayOfProducts.sort((a, b) => {
+        if (direction) {
+          return a.title.localeCompare(b.title)
+        }
+        return b.title.localeCompare(a.title)
+      })
+      break
+    }
+    case 'price': {
+      arrayOfProducts.sort((a, b) => {
+        if (direction) {
+          return a.price - b.price
+        }
+        return b.price - a.price
+      })
+      break
+    }
+    default:
+      return arrayOfProducts
+  }
+  return arrayOfProducts
+}
+
+server.post('/api/v1/sort', async (req, res) => {
+  const { sortType, direction } = req.body
+  const arrayOfProducts = await readFile(`${__dirname}/data/data.json`, 'utf-8')
+    .then((data) => JSON.parse(data))
+    .catch(() => [])
+  const sortArrayProducts = sortProductsList(arrayOfProducts, sortType, direction)
+  res.json(sortArrayProducts.filter((_, index) => index < 50))
+})
 
 server.get('/', (req, res) => {
   res.send('Express Server')

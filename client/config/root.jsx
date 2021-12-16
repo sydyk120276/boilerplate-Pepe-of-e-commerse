@@ -8,6 +8,9 @@ import store, { history } from '../redux'
 import Startup from './startup'
 
 import Main from '../components/main'
+import Home from '../components/home'
+import Basket from '../components/basket'
+import Logs from '../components/logs'
 
 const OnlyAnonymousRoute = ({ component: Component, ...rest }) => {
   const { user, token } = useSelector((s) => s.auth)
@@ -31,7 +34,9 @@ const Root = () => {
       <ConnectedRouter history={history}>
         <Startup>
           <Switch>
-            <Route exact path="/" component={() => <Main />} />
+            <Route exact path="/" component={Home} />
+            <Route exact path="/basket" component={Basket} />
+            <Route exact path="/logs" component={Logs} />
             <OnlyAnonymousRoute exact path="/anonymous" component={() => <Main />} />
             <PrivateRoute exact path="/private" component={() => <Main />} />
           </Switch>
