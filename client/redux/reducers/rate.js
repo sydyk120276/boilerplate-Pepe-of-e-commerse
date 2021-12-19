@@ -1,6 +1,6 @@
 const GET_RATES = '@cards/GET_RATES'
-const CURRENCY_NAME = '@cards/CURRENCY_NAME'
-const SORT_TYPE = '@cards/SORT_TYPE'
+export const CURRENCY_NAME = '@cards/CURRENCY_NAME'
+export const SORT_TYPE = '@cards/SORT_TYPE'
 
 const initialState = {
   rates: { USD: 1 },
@@ -50,7 +50,12 @@ export function getRates() {
 }
 
 export const currensyNames = (value) => {
-  return { type: CURRENCY_NAME, payload: value }
+  return (dispatch, getState) => {
+    const { currensyName } = getState().rate
+    if (currensyName !== value) {
+      dispatch({ type: CURRENCY_NAME, payload: value })
+    }
+  }
 }
 
 export function setSortToggle(sortType) {

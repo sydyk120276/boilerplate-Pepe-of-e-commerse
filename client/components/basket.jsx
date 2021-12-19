@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 
 import Headers from './header'
 import Table from './Table/tab'
+import LogButton from './logButton'
 
 const Basket = () => {
   const { currensyName, rates } = useSelector((s) => s.rate)
@@ -10,9 +11,11 @@ const Basket = () => {
   const listId = useSelector((s) => s.cart.list)
 
   return (
-    <>
+    <div className="flex flex-col">
       <Headers />
-      <Table data={Object.keys(listId)} />
+      <div className=" mt-36">
+        <Table data={Object.keys(listId)} />
+      </div>
       {/* {Object.keys(listId).map((elem) => {
         return (
           <div key={elem} className="flex">
@@ -29,8 +32,9 @@ const Basket = () => {
         <div>
           {(totalPrice * rates[currensyName]).toFixed(2)} {currensyName}
         </div>
+        <LogButton />
       </div>
-    </>
+    </div>
   )
 }
 

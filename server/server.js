@@ -98,6 +98,33 @@ server.post('/api/v1/sort', async (req, res) => {
   res.json(sortArrayProducts.filter((_, index) => index < 50))
 })
 
+// let logs = []
+
+server.post('/api/v1/logs', async (req, res) => {
+  const logStr = req.body.text
+  const log = await readFile(`${__dirname}/data/logs.json`, 'utf8')
+    .then((arrOfLogs) => {
+      const logs = JSON.parse(arrOfLogs)
+      if (logs.length >= 100) {
+        logs.shift()
+      }
+      writeFile(`${__dirname}/data/logs.json`, JSON.stringify([...logs, logStr]), 'utf8')
+    })
+    .catch(() => {
+      writeFile(`${__dirname}/data/logs.json`, JSON.stringify([logStr]), 'utf8')
+    })
+  res.json(log)
+})
+
+server.get('/api/v1/logs', async (req, res) => {
+  const logs = await readFile(`${__dirname}/data/logs.json`, { encoding: 'utf8' })
+    .then((arrOfLogs) => {
+      return JSON.parse(arrOfLogs)
+    })
+    .catch(() => [])
+  res.json(logs)
+})
+
 server.get('/', (req, res) => {
   res.send('Express Server')
 })

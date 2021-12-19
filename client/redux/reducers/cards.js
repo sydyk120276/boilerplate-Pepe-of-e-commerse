@@ -1,4 +1,4 @@
-const GET_GOODS = '@cards/GET_GOODS'
+export const GET_GOODS = '@cards/GET_GOODS'
 
 const initialState = {
   list: {},

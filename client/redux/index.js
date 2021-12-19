@@ -6,12 +6,13 @@ import thunk from 'redux-thunk'
 
 import rootReducer from './reducers'
 import socket from './middleware/socketIO'
+import logs from './middleware/logs'
 
 export const history = createBrowserHistory()
 
 const preloadedState = {}
 
-const middleware = [routerMiddleware(history), socket, thunk]
+const middleware = [routerMiddleware(history), socket, logs, thunk]
 
 const composeFunc = process.env.NODE_ENV === 'development' ? composeWithDevTools : compose
 const composedEnhancers = composeFunc(applyMiddleware(...middleware))

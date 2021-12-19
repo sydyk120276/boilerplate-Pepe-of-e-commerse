@@ -11,7 +11,7 @@ const TableRow = ({ id, n }) => {
 
   return (
     <>
-      <tr className="">
+      <tr className="mt-24">
         <td className="text-center">{n}</td>
         <td className="text-center">{listId[id].title}</td>
         <td className="">

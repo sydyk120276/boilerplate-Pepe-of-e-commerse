@@ -5,27 +5,26 @@ import { getGoods } from '../redux/reducers/cards'
 import { getRates } from '../redux/reducers/rate'
 import Cards from './cards'
 import Headers from './header'
+import LogButton from './logButton'
 
 const Home = () => {
   const { list } = useSelector((s) => s.cards)
-  console.log('list', list)
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(getGoods())
-  }, [])
-  useEffect(() => {
     dispatch(getRates())
   }, [])
 
   return (
-    <div>
+    <div className="">
       <Headers />
       <div className="container grid grid-cols-4 gap-4 pt-36">
         {Object.values(list).map((item) => {
           return <Cards key={item.id} card={item} />
         })}
       </div>
+      <LogButton />
     </div>
   )
 }
