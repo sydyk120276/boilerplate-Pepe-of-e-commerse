@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { getGoods } from '../redux/reducers/cards'
-import { getRates } from '../redux/reducers/rate'
 import Cards from './cards'
 import Headers from './header'
 import LogButton from './logButton'
@@ -13,7 +12,6 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getGoods())
-    dispatch(getRates())
   }, [])
 
   return (
