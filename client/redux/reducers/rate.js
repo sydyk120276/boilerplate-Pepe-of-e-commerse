@@ -1,5 +1,5 @@
 const GET_RATES = '@cards/GET_RATES'
-const DATE_CHEK = '@cards/DATE_CHEK'
+const CHECK_RATE_DATE = '@cards/CHECK_RATE_DATE'
 export const CURRENCY_NAME = '@cards/CURRENCY_NAME'
 export const SORT_TYPE = '@cards/SORT_TYPE'
 
@@ -22,10 +22,10 @@ export default (state = initialState, action) => {
         rates: action.payload
       }
     }
-    case DATE_CHEK: {
+    case CHECK_RATE_DATE: {
       return {
         ...state,
-        rates: action.payload
+        rateDate: action.payload
       }
     }
     case CURRENCY_NAME: {
@@ -46,17 +46,21 @@ export default (state = initialState, action) => {
   }
 }
 
-export function getRates() {
+export const getRates = () => {
   return (dispatch, getState) => {
-    const { rateData } = getState().rate
-    const data = +new Date()
-    if ((rateData + 1000 * 60 * 15) <= data) {
+    const { rateDate } = getState().rate
+    const date = +new Date()
+    if (rateDate + 1000 * 60 * 15 <= date) {
       fetch('/api/v1/rates')
-        .then((res) => res.json())
-        .then((rat) => {
-          dispatch({ type: GET_RATES, payload: rat })
-        })
-      dispatch({ type: DATE_CHEK, payload: data })
+        .then((obj) => obj.json())
+        .then((rates) => dispatch({
+          type: GET_RATES,
+          payload: rates
+        }))
+      dispatch({
+        type: CHECK_RATE_DATE,
+        payload: date
+      })
     }
   }
 }
