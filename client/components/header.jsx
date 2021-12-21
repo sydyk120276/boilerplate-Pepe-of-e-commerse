@@ -29,7 +29,7 @@ const Headers = () => {
             <button
               key={name.toLowerCase()}
               type="button"
-              className="flex bg-red-200 font-bold hover:bg-red-400 active:bg-red-700 h-6 w-12 rounded justify-center items-center transform duration-700 scale-100 hover:scale-110 "
+              className="currency_btn"
               data-name={name.toLowerCase()}
               onClick={(e) => ratesButton(e.target.dataset.name)}
             >

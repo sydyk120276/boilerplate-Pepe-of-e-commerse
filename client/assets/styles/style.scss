@@ -1,3 +1,7 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
+.currency_btn {
+  @apply flex bg-red-200 font-bold hover:bg-red-400 active:bg-red-700 h-6 w-12 rounded justify-center items-center transform duration-700 scale-100 hover:scale-110
+}
