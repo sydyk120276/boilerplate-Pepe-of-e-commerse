@@ -11,6 +11,11 @@ const Headers = () => {
   const { currensyName, rates, sort } = useSelector((s) => s.rate)
   const { totalAmount, totalPrice } = useSelector((s) => s.cart)
 
+  // const ratesButton = (name) => {
+  //   dispatch(getRates())
+  //   dispatch(currensyNames(name.toUpperCase()))
+  // }
+
   const sortByType = (sortType) => {
     dispatch(setSortToggle(sortType))
     dispatch(sortProducts(sortType, sort[sortType]))
@@ -19,6 +24,19 @@ const Headers = () => {
   return (
     <>
       <div className="flex h-20 w-full bg-blue-400 items-center justify-between fixed z-50 ">
+        {/* <div className="flex justify-between w-44 pl-4  text-xs ">
+          {Object.keys(rates).map((name) => (
+            <button
+              key={name.toLowerCase()}
+              type="button"
+              className="flex font-bold bg-red-200 hover:bg-red-400 active:bg-red-700 h-6 w-12 rounded justify-center transform duration-700 scale-100 hover:scale-110 "
+              data-name={name.toLowerCase()}
+              onClick={(e) => ratesButton(e.target.dataset.name)}
+            >
+              {name.toUpperCase()}
+            </button>
+          ))}
+        </div> */}
         <div className="flex justify-between w-44 pl-4  text-xs ">
           <div className="flex bg-red-200 hover:bg-red-400 active:bg-red-700 h-6 w-12 rounded justify-center transform duration-700 scale-100 hover:scale-110 ">
             <button

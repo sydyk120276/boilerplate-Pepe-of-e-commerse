@@ -30,7 +30,6 @@ const Logs = () => {
           })
             .then((r) => r.json())
             .then((list) => {
-              console.log('list', list)
               dispatch({ type: LOG_ITEM, payload: list })
             })
             .catch((err) => {

@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux'
 
 const Logs = () => {
   const { logArray } = useSelector((s) => s.logs)
-  console.log('logArray', logArray)
   return (
     <div>
       {logArray.map((log) => {
