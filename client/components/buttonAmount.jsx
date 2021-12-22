@@ -1,12 +1,10 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 import { changeItem } from '../redux/reducers/cart'
 
-const ButtonAmount = ({ id }) => {
+const ButtonAmount = ({ id, basketCount }) => {
   const dispatch = useDispatch()
-
-  const { list } = useSelector((s) => s.cart)
 
   return (
     <>
@@ -21,7 +19,7 @@ const ButtonAmount = ({ id }) => {
             <span className="m-auto text-2xl font-thin">−</span>
           </button>
           <span className="flex justify-center outline-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none">
-            {list[id]?.amount}
+            {basketCount}
           </span>
           <button
             type="button"

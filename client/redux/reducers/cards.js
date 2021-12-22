@@ -1,7 +1,7 @@
 export const GET_GOODS = '@cards/GET_GOODS'
 
 const initialState = {
-  list: {},
+  list: {}
 }
 
 export default (state = initialState, action) => {

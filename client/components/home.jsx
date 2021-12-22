@@ -8,6 +8,7 @@ import LogButton from './logButton'
 
 const Home = () => {
   const { list } = useSelector((s) => s.cards)
+  const listId = useSelector((s) => s.cart.list)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -19,7 +20,8 @@ const Home = () => {
       <Headers />
       <div className="container grid grid-cols-4 gap-4 pt-36">
         {Object.values(list).map((item) => {
-          return <Cards key={item.id} card={item} />
+          const basketCount = Object.values(listId).find((itBas) => itBas.id === item.id)
+          return <Cards key={item.id} card={item} basketCount={basketCount?.amount} />
         })}
       </div>
       <LogButton />

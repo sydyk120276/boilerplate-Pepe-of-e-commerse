@@ -21,7 +21,7 @@ const TableRow = ({ id, n }) => {
           {(listId[id].price * rates[currensyName]).toFixed(2)} {currensyName}
         </td>
         <td className="product__amount flex justify-center">
-          <ButtonAmount id={id} />
+          <ButtonAmount id={id} basketCount={listId[id]?.amount} />
         </td>
         <td className="text-center">
           {(listId[id].price * rates[currensyName] * listId[id].amount).toFixed(2)}
