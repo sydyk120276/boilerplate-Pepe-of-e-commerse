@@ -8,7 +8,9 @@ import io from 'socket.io'
 
 import config from './config'
 import mongooseService from './services/mongoose'
+import foodModel from './mongodb/models/foodModel'
 import { getRates, sortProductsList, getProductsFunc } from './common'
+// import foodModel from './mongodb/models/foodModel'
 
 import Html from '../client/html'
 
@@ -40,8 +42,15 @@ const middleware = [
 middleware.forEach((it) => server.use(it))
 
 server.get('/api/v1/products', async (req, res) => {
-  const result = await getProductsFunc()
-  res.json(result.slice(0, 50))
+  //  const result = await getProductsFunc()
+  //  console.log(result)
+  try {
+    const data = await foodModel.find()
+    const temp = data.map((el) => ({ ...el._doc, date: new Date().toISOString() }))
+    res.json(temp.slice(0, 50))
+  } catch (err) {
+    console.log(err)
+  }
 })
 
 // server.get('/api/v1/rates', async (req, res) => {
