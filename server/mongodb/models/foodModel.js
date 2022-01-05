@@ -8,7 +8,6 @@ const foodSchema = new mongoose.Schema(
     title: {
       type: String,
       required: true,
-      unique: true
     },
     image: {
       type: String
@@ -25,4 +24,4 @@ const foodSchema = new mongoose.Schema(
   }
 )
 
-export default mongoose.model('products', foodSchema)
+export default mongoose.model('foods', foodSchema)

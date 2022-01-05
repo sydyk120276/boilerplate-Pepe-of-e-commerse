@@ -42,12 +42,11 @@ const middleware = [
 middleware.forEach((it) => server.use(it))
 
 server.get('/api/v1/products', async (req, res) => {
-  //  const result = await getProductsFunc()
+  const result = await getProductsFunc()
   //  console.log(result)
   try {
-    const data = await foodModel.find()
-    const temp = data.map((el) => ({ ...el._doc, date: new Date().toISOString() }))
-    res.json(temp.slice(0, 50))
+    const data = await foodModel.create(result)
+    res.json(data.slice(0, 50))
   } catch (err) {
     console.log(err)
   }
@@ -104,7 +103,8 @@ server.get('/api/v1/rates', async (req, res) => {
 
 server.post('/api/v1/sort', async (req, res) => {
   const { sortType, direction } = req.body
-  const arrayOfProducts = await getProductsFunc()
+  // const arrayOfProducts = await getProductsFunc()
+  const arrayOfProducts = await foodModel.find()
   const sortArrayProducts = sortProductsList(arrayOfProducts, sortType, direction)
   res.json(sortArrayProducts.filter((_, index) => index < 50))
 })
