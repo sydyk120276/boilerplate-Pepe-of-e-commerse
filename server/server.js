@@ -4,13 +4,11 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import favicon from 'serve-favicon'
 import io from 'socket.io'
-// import axios from 'axios'
 
 import config from './config'
 import mongooseService from './services/mongoose'
 import foodModel from './mongodb/models/foodModel'
 import { getRates, sortProductsList, getProductsFunc } from './common'
-// import foodModel from './mongodb/models/foodModel'
 
 import Html from '../client/html'
 
