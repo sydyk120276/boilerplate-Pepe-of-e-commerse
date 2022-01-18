@@ -13,7 +13,7 @@ const config = {
   },
   devServer: {
     hot: true,
-    // open: true,
+    open: true,
     contentBase: resolve(__dirname, 'dist'),
     port: 8081,
     host: 'localhost',

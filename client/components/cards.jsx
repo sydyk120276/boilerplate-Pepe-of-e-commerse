@@ -10,7 +10,7 @@ const Cards = ({ card, basketCount }) => {
   const { currensyName, rates } = useSelector((s) => s.rate)
 
   return (
-    <div className="flex-col h-72 bg-gray-200 gap-4">
+    <div className="flex-col h-80 bg-gray-200 shadow-2xl cursor-pointer transform duration-1000 scale-100 hover:scale-105">
       <div className="h-3/4">
         <img className="h-full w-full" src={card.image} alt="" />
       </div>

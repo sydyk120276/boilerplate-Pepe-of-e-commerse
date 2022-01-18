@@ -18,7 +18,7 @@ const Home = () => {
   return (
     <div className="">
       <Headers />
-      <div className="container grid grid-cols-4 gap-4 pt-36">
+      <div className="container grid grid-cols-4 gap-12 pt-36">
         {Object.values(list).map((item) => {
           const basketCount = Object.values(listId).find((itBas) => itBas.id === item.id)
           return <Cards key={item.id} card={item} basketCount={basketCount?.amount} />

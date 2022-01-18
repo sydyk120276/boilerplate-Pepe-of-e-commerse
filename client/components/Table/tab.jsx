@@ -7,7 +7,7 @@ const Table = ({ data }) => {
     <table className="w-full">
       <thead>
         <tr>
-          <th>#</th>
+          <th>№</th>
           <th>Title</th>
           <th>Image</th>
           <th>Price</th>
