@@ -4,12 +4,13 @@ import { Link } from 'react-router-dom'
 
 import { sortProducts } from '../redux/reducers/cards'
 import { currensyNames, setSortToggle, getRates } from '../redux/reducers/rate'
+import CustomizedBadges from './CustomizedBadges'
 
 const Headers = () => {
   const dispatch = useDispatch()
 
   const { currensyName, rates, sort } = useSelector((s) => s.rate)
-  const { totalAmount, totalPrice } = useSelector((s) => s.cart)
+  const { totalPrice } = useSelector((s) => s.cart)
 
   const ratesButton = (name) => {
     dispatch(getRates())
@@ -86,18 +87,18 @@ const Headers = () => {
             Shop
           </Link>
         </div>
-        <div className="flex">
+        <div className="flex flex-col">
+          <div className="flex ">
+            <Link to="/basket" id="#order-count">
+              <CustomizedBadges />
+            </Link>
+          </div>
           <div className="mr-4">
             <div className="flex font-bold">
               <div className="">{(totalPrice * rates[currensyName]).toFixed(2)}</div>
               <div className="ml-2">{currensyName}</div>
             </div>
-            <div className="ml-4 font-semibold">{totalAmount}</div>
-          </div>
-          <div className="flex border-0 bg-green-400 text-white h-8 w-16 rounded font-bold justify-center mr-4">
-            <Link to="/basket" id="#order-count">
-              Basket
-            </Link>
+            {/* <div className="ml-4 font-semibold">{totalAmount}</div> */}
           </div>
         </div>
       </div>
