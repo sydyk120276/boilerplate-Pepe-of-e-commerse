@@ -101,10 +101,10 @@ server.get('/api/v1/rates', async (req, res) => {
 
 server.post('/api/v1/sort', async (req, res) => {
   const { sortType, direction } = req.body
-  // const arrayOfProducts = await getProductsFunc()
-  const arrayOfProducts = await foodModel.find()
+  const arrayOfProducts = await getProductsFunc()
+  // const arrayOfProducts = await foodModel.find()
   const sortArrayProducts = sortProductsList(arrayOfProducts, sortType, direction)
-  res.json(sortArrayProducts.filter((_, index) => index < 50))
+  res.json(sortArrayProducts.slice(0, 50))
 })
 
 const logs = []
