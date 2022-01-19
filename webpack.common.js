@@ -11,7 +11,7 @@ const { SOCKETS_ENABLE } = process.env
 const config = {
   entry: './client/main.jsx',
   resolve: {
-    extensions: ['.js', '.jsx', '.json'],
+    extensions: ['.js', '.jsx', '.json']
   },
   output: {
     filename: 'assets/js/[name].bundle.js',
@@ -49,6 +49,14 @@ const config = {
           'postcss-loader',
           'sass-loader'
         ]
+      },
+      {
+        test: /\.(png|jpg|gif|webp)$/,
+        use: [
+          {
+            loader: 'file-loader'
+          }
+        ]
       }
     ]
   },
@@ -68,7 +76,7 @@ const config = {
         },
         {
           from: 'client/html.js',
-          to: '[name][ext]',
+          to: '[name][ext]'
         },
         {
           from: `client/assets/images`,

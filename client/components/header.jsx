@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { sortProducts } from '../redux/reducers/cards'
 import { currensyNames, setSortToggle, getRates } from '../redux/reducers/rate'
 import CustomizedBadges from './CustomizedBadges'
+import gif from '../assets/images/9.gif'
 
 const Headers = () => {
   const dispatch = useDispatch()
@@ -84,7 +85,7 @@ const Headers = () => {
         </div>
         <div className="shop_btn">
           <Link to="/" id="#brand-name">
-            Shop
+            <img src={gif} alt="" /> Welcome to Shop
           </Link>
         </div>
         <div className="flex flex-col">
