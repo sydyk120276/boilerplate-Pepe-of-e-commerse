@@ -8,7 +8,7 @@ const initialState = {
   list: {},
   totalAmount: 0,
   totalPrice: 0,
-  // ...JSON.parse(localStorage.getItem('cart'))
+  ...JSON.parse(localStorage.getItem('cart'))
 }
 
 export default (state = initialState, action) => {

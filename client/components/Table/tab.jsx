@@ -4,7 +4,7 @@ import TableRow from './tab-row'
 
 const Table = ({ data }) => {
   return (
-    <table className="w-full">
+    <table className="container bg-gray-200 h-2/4 rounded shadow-2xl">
       <thead>
         <tr>
           <th>№</th>

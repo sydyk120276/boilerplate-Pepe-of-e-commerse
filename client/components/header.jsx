@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom'
 import { sortProducts } from '../redux/reducers/cards'
 import { currensyNames, setSortToggle, getRates } from '../redux/reducers/rate'
 import CustomizedBadges from './CustomizedBadges'
-import gif from '../assets/images/9.gif'
 
 const Headers = () => {
   const dispatch = useDispatch()
@@ -83,12 +82,12 @@ const Headers = () => {
             </div>
           </div>
         </div>
-        <div className="shop_btn">
+        <div className="">
           <Link to="/" id="#brand-name">
-            <img src={gif} alt="" /> Welcome to Shop
+            <img className="h-20 w-64 mr-48" src="https://object.pscloud.io/cms/cms/Uploads/sulpak_colour_cool.gif" alt="" />
           </Link>
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col w-24 h-20">
           <div className="flex ">
             <Link to="/basket" id="#order-count">
               <CustomizedBadges />
