@@ -127,7 +127,7 @@ server.post('/api/v1/sort', async (req, res) => {
   const arrayOfProducts = await getProductsFunc()
   // const arrayOfProducts = await foodModel.find()
   const sortArrayProducts = sortProductsList(arrayOfProducts, sortType, direction)
-  res.json(sortArrayProducts.slice(0, 50))
+  res.json(sortArrayProducts.slice(0, 16))
 })
 
 const logs = []

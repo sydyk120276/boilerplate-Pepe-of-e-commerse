@@ -24,9 +24,9 @@ const Headers = ({ seatchDeviceValue }) => {
 
   return (
     <>
-      <div className="flex container h-20 bg-blue-400 items-center justify-between fixed z-50 ">
-        <div className="flex gap-12">
-          <div className="flex justify-between w-44 pl-4 pt-2  text-xs">
+      <div className="flex container h-20 bg-blue-400 items-center justify-between fixed z-50">
+        <div className="flex gap-2 items-center md:flex-col md:ml-6">
+          <div className="flex justify-between w-36 pl-4 text-xs">
             {Object.keys(rates).map((name) => (
               <button
                 key={name.toLowerCase()}
@@ -69,48 +69,68 @@ const Headers = ({ seatchDeviceValue }) => {
           </div>
         </div> */}
           <div className="flex gap-4 bg-gray-200 p-2 rounded-lg">
-            <div>Sorting: </div>
+            <div className="md:text-sm">Sorting: </div>
             <div className="sorting_btn">
-              <button className="font-bold " type="button" onClick={() => sortByType('name')}>
-                Name <span>{sort.name ? '▼' : '▲'}</span>
+              <button
+                className="font-bold lg:font-semibold lg:text-sm md:text-sm"
+                type="button"
+                onClick={() => sortByType('name')}
+              >
+                Name <span className="">{sort.name ? '▼' : '▲'}</span>
               </button>
             </div>
             <div className="sorting_btn">
-              <button className="font-bold " type="button" onClick={() => sortByType('price')}>
+              <button
+                className="font-bold lg:font-semibold lg:text-sm md:text-sm"
+                type="button"
+                onClick={() => sortByType('price')}
+              >
                 Price <span>{sort.price ? '▼' : '▲'}</span>
               </button>
             </div>
           </div>
         </div>
-        <div className="flex items-center">
+        <div className="flex items-center justify-center">
           <Link to="/" id="#brand-name">
             <img
-              className="h-20 w-64 mr-48"
+              className="h-20 w-60 lg:w-36 md:w-28"
               src="https://object.pscloud.io/cms/cms/Uploads/sulpak_colour_cool.gif"
               alt=""
             />
           </Link>
-          <div>
-            <input
-              type="text"
-              className="border-2 focus:outline-none h-8 w-64 rounded-md border-red-400 pl-4"
-              placeholder="search . . ."
-              onChange={seatchDeviceValue}
-            />
-          </div>
         </div>
-        <div className="flex flex-col w-24 h-20">
-          <div className="flex ">
-            <Link to="/basket" id="#order-count">
-              <CustomizedBadges />
-            </Link>
-          </div>
-          <div className="mr-4">
-            <div className="flex font-bold">
-              <div className="">{(totalPrice * rates[currensyName]).toFixed(2)}</div>
-              <div className="ml-2">{currensyName}</div>
+        <div className="flex gap-10 lg:gap-6">
+          <div className="flex gap-6 md:flex-col md:gap-2 md:items-center">
+            <div className="flex items-center gap-2">
+              <button type="button" className="login_btn font-bold">
+                Sing In
+              </button>
+              <button type="button" className="login_btn font-bold">
+                Login
+              </button>
             </div>
-            {/* <div className="ml-4 font-semibold">{totalAmount}</div> */}
+            <div className="flex items-center">
+              <input
+                type="text"
+                className="border-2 focus:outline-none h-8 rounded-md border-red-400 pl-4"
+                placeholder="search . . ."
+                onChange={seatchDeviceValue}
+              />
+            </div>
+          </div>
+          <div className="flex flex-col">
+            <div className="flex ">
+              <Link to="/basket" id="#order-count">
+                <CustomizedBadges />
+              </Link>
+            </div>
+            <div className="mr-4">
+              <div className="flex font-bold">
+                <div className="">{(totalPrice * rates[currensyName]).toFixed(2)}</div>
+                <div className="ml-2">{currensyName}</div>
+              </div>
+              {/* <div className="ml-4 font-semibold">{totalAmount}</div> */}
+            </div>
           </div>
         </div>
       </div>

@@ -11,7 +11,7 @@ const Basket = () => {
   const listId = useSelector((s) => s.cart.list)
 
   return (
-    <div className="flex flex-col">
+    <div className="flex container flex-col">
       <Headers />
       <div className=" mt-36">
         <Table data={Object.keys(listId)} />
@@ -27,7 +27,7 @@ const Basket = () => {
           </div>
         )
       })} */}
-      <div className="flex-col w-screen mt-24 font-bold">
+      <div className="flex-col mt-24 font-bold">
         <div className="flex justify-center">Total: {totalAmount}</div>
         <div className="flex justify-center">
           Sum: {(totalPrice * rates[currensyName]).toFixed(2)} {currensyName}
