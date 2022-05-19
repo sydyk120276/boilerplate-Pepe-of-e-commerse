@@ -6,10 +6,10 @@
   @apply flex bg-red-200 font-bold hover:bg-red-400 active:bg-red-700 px-2 rounded justify-center items-center transform duration-700 scale-100 hover:scale-110
 }
 .sorting_btn {
-  @apply flex bg-red-300 hover:bg-red-400 active:bg-red-700 px-6 lg:px-2 md:px-0 rounded justify-center transform duration-700 scale-100 hover:scale-110
+  @apply flex bg-red-300 hover:bg-red-400 active:bg-red-700 px-6 lg:px-2 xl:px-6 md:p-0 rounded justify-center transform duration-700 scale-100 hover:scale-110
 }
 .login_btn {
-  @apply flex bg-red-300 hover:bg-red-400 lg:font-semibold lg:text-sm md:text-sm md:font-semibold active:bg-red-700 px-2 rounded justify-center transform duration-700 scale-100 hover:scale-110
+  @apply flex bg-red-300 hover:bg-red-400 active:bg-red-700 px-2 font-bold rounded justify-center transform duration-700 scale-100 hover:scale-110
 }
 .shop_btn {
   @apply flex text-purple-700 hover:text-purple-900 text-lg transform duration-700 scale-100 hover:scale-150 rounded font-bold justify-center mr-24

@@ -28,7 +28,7 @@ const Home = () => {
       <Headers seatchDeviceValue={seatchDeviceValue} />
       <div className="flex flex-col mt-24">
         <Pages />
-        <div className="grid grid-cols-4 gap-12 pt-2">
+        <div className="grid grid-cols-4 lg:grid-cols-3 xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-12 pt-2">
           {listFiltered.map((item) => {
             const basketCount = Object.values(listId).find((itBas) => itBas.id === item.id)
             console.log(basketCount)

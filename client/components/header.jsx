@@ -25,7 +25,7 @@ const Headers = ({ seatchDeviceValue }) => {
   return (
     <>
       <div className="flex container h-20 bg-blue-400 items-center justify-between fixed z-50">
-        <div className="flex gap-2 items-center md:flex-col md:ml-6">
+        <div className="flex gap-2 items-center lg:flex-col md:flex-col xl:flex-row md:ml-4">
           <div className="flex justify-between w-36 pl-4 text-xs">
             {Object.keys(rates).map((name) => (
               <button
@@ -71,20 +71,12 @@ const Headers = ({ seatchDeviceValue }) => {
           <div className="flex gap-4 bg-gray-200 p-2 rounded-lg">
             <div className="md:text-sm">Sorting: </div>
             <div className="sorting_btn">
-              <button
-                className="font-bold lg:font-semibold lg:text-sm md:text-sm"
-                type="button"
-                onClick={() => sortByType('name')}
-              >
+              <button className="font-bold" type="button" onClick={() => sortByType('name')}>
                 Name <span className="">{sort.name ? '▼' : '▲'}</span>
               </button>
             </div>
             <div className="sorting_btn">
-              <button
-                className="font-bold lg:font-semibold lg:text-sm md:text-sm"
-                type="button"
-                onClick={() => sortByType('price')}
-              >
+              <button className="font-bold" type="button" onClick={() => sortByType('price')}>
                 Price <span>{sort.price ? '▼' : '▲'}</span>
               </button>
             </div>
@@ -93,19 +85,19 @@ const Headers = ({ seatchDeviceValue }) => {
         <div className="flex items-center justify-center">
           <Link to="/" id="#brand-name">
             <img
-              className="h-20 w-60 lg:w-36 md:w-28"
+              className="h-20 w-36"
               src="https://object.pscloud.io/cms/cms/Uploads/sulpak_colour_cool.gif"
               alt=""
             />
           </Link>
         </div>
-        <div className="flex gap-10 lg:gap-6">
-          <div className="flex gap-6 md:flex-col md:gap-2 md:items-center">
+        <div className="flex gap-10 ">
+          <div className="flex gap-6  md:flex-col xl:flex-row lg:flex-col lg:gap-2 md:gap-2 md:items-center">
             <div className="flex items-center gap-2">
-              <button type="button" className="login_btn font-bold">
+              <button type="button" className="login_btn">
                 Sing In
               </button>
-              <button type="button" className="login_btn font-bold">
+              <button type="button" className="login_btn">
                 Login
               </button>
             </div>
