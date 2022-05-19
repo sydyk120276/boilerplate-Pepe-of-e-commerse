@@ -24,7 +24,7 @@ const Headers = ({ seatchDeviceValue }) => {
 
   return (
     <>
-      <div className="flex h-20 w-full bg-blue-400 items-center justify-between fixed z-50 ">
+      <div className="flex container h-20 bg-blue-400 items-center justify-between fixed z-50 ">
         <div className="flex gap-12">
           <div className="flex justify-between w-44 pl-4 pt-2  text-xs">
             {Object.keys(rates).map((name) => (
@@ -93,7 +93,7 @@ const Headers = ({ seatchDeviceValue }) => {
           <div>
             <input
               type="text"
-              className="border h-8 w-64 rounded-md outline-dashed pl-4"
+              className="border-2 focus:outline-none h-8 w-64 rounded-md border-red-400 pl-4"
               placeholder="search . . ."
               onChange={seatchDeviceValue}
             />

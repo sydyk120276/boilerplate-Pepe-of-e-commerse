@@ -12,6 +12,7 @@
     "lint": "eslint './server/**/*.js' './client/**/*.js' './client/**/*.jsx'",
     "prettier": "prettier './server/**/*.js' './client/**/*.js' './client/**/*.jsx' --write --no-error-on-unmatched-pattern",
     "start": "cross-env NODE_ENV=production && node start.js",
+    "build": "yarn run build:prod",
     "heroku-postbuild": "yarn run build:prod",
     "prepare": "husky install"
   },

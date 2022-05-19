@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { getGoods } from '../redux/reducers/cards'
 import Cards from './cards'
 import Headers from './header'
+import Pages from './pages'
 import LogButton from './logButton'
 
 const Home = () => {
@@ -23,16 +24,21 @@ const Home = () => {
   const listFiltered = Object.values(list).filter((elem) => elem.title.toLowerCase().includes(searchValue.toLowerCase()))
 
   return (
-    <div className="">
+    <div className="container flex flex-col">
       <Headers seatchDeviceValue={seatchDeviceValue} />
-      <div className="container grid grid-cols-4 gap-12 pt-36">
-        {listFiltered.map((item) => {
-          const basketCount = Object.values(listId).find((itBas) => itBas.id === item.id)
-          console.log(basketCount)
-          return <Cards key={item.id} card={item} basketCount={basketCount?.amount} />
-        })}
+      <div className="flex flex-col mt-24">
+        <Pages />
+        <div className="grid grid-cols-4 gap-12 pt-2">
+          {listFiltered.map((item) => {
+            const basketCount = Object.values(listId).find((itBas) => itBas.id === item.id)
+            console.log(basketCount)
+            return <Cards key={item.id} card={item} basketCount={basketCount?.amount} />
+          })}
+        </div>
       </div>
-      <LogButton />
+      <div>
+        <LogButton />
+      </div>
     </div>
   )
 }

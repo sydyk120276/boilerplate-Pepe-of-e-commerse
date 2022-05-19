@@ -4,13 +4,9 @@ import { useSelector } from 'react-redux'
 const Logs = () => {
   const { logArray } = useSelector((s) => s.logs)
   return (
-    <div>
+    <div className="flex">
       {logArray.map((log) => {
-        return (
-          <div key={log?.id}>
-            {log?.string}
-          </div>
-        )
+        return <div key={log?.id}>{log?.string}</div>
       })}
     </div>
   )

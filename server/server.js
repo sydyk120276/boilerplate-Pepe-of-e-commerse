@@ -39,16 +39,39 @@ const middleware = [
 
 middleware.forEach((it) => server.use(it))
 
-server.get('/api/v1/products', async (req, res) => {
-  const result = await getProductsFunc()
-  //  console.log(result)
+server.get('/api/v1/products/:currentPage', async (req, res) => {
+  const { currentPage } = req.params
+  const perPage = +config.PER_PAGE
   try {
-    const data = await foodModel.create(result)
-    res.json(data.slice(0, 50))
+    const data = await foodModel
+      .find()
+      .skip(perPage * currentPage - perPage)
+      .limit(perPage)
+    res.json({ data })
   } catch (err) {
     console.log(err)
   }
 })
+
+server.get('/api/v1/totalCount', async (req, res) => {
+  try {
+    const data = await foodModel.find()
+    res.json(data.length)
+  } catch (err) {
+    console.log(err)
+  }
+})
+
+// server.get('/api/v1/products', async (req, res) => {
+//   const result = await getProductsFunc()
+//   //  console.log(result)
+//   try {
+//     const data = await foodModel.create(result)
+//     res.json(data)
+//   } catch (err) {
+//     console.log(err)
+//   }
+// })
 
 // server.get('/api/v1/rates', async (req, res) => {
 //   const result = await axios('https://api.exchangerate.host/latest?base=USD&symbols=USD,EUR,CAD')
