@@ -5,6 +5,7 @@ import { addAmmount } from '../redux/reducers/cart'
 import ButtonAmount from './buttonAmount'
 
 const Cards = ({ card, basketCount }) => {
+  console.log(basketCount)
   const dispatch = useDispatch()
 
   const { currensyName, rates } = useSelector((s) => s.rate)

@@ -6,7 +6,7 @@ import { sortProducts } from '../redux/reducers/cards'
 import { currensyNames, setSortToggle, getRates } from '../redux/reducers/rate'
 import CustomizedBadges from './CustomizedBadges'
 
-const Headers = () => {
+const Headers = ({ seatchDeviceValue }) => {
   const dispatch = useDispatch()
 
   const { currensyName, rates, sort } = useSelector((s) => s.rate)
@@ -82,10 +82,22 @@ const Headers = () => {
             </div>
           </div>
         </div>
-        <div className="">
+        <div className="flex items-center">
           <Link to="/" id="#brand-name">
-            <img className="h-20 w-64 mr-48" src="https://object.pscloud.io/cms/cms/Uploads/sulpak_colour_cool.gif" alt="" />
+            <img
+              className="h-20 w-64 mr-48"
+              src="https://object.pscloud.io/cms/cms/Uploads/sulpak_colour_cool.gif"
+              alt=""
+            />
           </Link>
+          <div>
+            <input
+              type="text"
+              className="border h-8 w-64 rounded-md outline-dashed pl-4"
+              placeholder="search . . ."
+              onChange={seatchDeviceValue}
+            />
+          </div>
         </div>
         <div className="flex flex-col w-24 h-20">
           <div className="flex ">
