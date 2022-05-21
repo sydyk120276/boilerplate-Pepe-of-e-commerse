@@ -27,7 +27,7 @@ const Cards = ({ card, basketCount }) => {
           {!basketCount && (
             <button
               type="button"
-              className="flex items-center mr-8 font-bold bg-blue-300 hover:bg-blue-500 h-8 w-16 mt-4 rounded-lg justify-center cursor-pointer transform duration-700 scale-100 hover:scale-110"
+              className="flex items-center mr-8 font-bold bg-blue-300 hover:bg-blue-500 p-2 mt-4 rounded-lg justify-center cursor-pointer transform duration-700 scale-100 hover:scale-110"
               onClick={() => dispatch(addAmmount(card.id))}
             >
               Add
