@@ -8,7 +8,7 @@ const ButtonAmount = ({ id, basketCount }) => {
 
   return (
     <>
-      <div className="custom-number-input h-10 w-32">
+      <div className="custom-number-input h-10 w-32 md:w-20 lg:w-32">
         <div className="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-1">
           <button
             type="button"

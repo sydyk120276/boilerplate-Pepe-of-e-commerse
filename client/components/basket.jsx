@@ -27,7 +27,7 @@ const Basket = () => {
           </div>
         )
       })} */}
-      <div className="flex-col mt-24 font-bold">
+      <div className="flex-col mt-20 mb-12 font-bold">
         <div className="flex justify-center">Total: {totalAmount}</div>
         <div className="flex justify-center">
           Sum: {(totalPrice * rates[currensyName]).toFixed(2)} {currensyName}
