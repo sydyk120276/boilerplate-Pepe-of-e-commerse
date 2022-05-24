@@ -5,6 +5,7 @@ import cards from './cards'
 import cart from './cart'
 import rate from './rate'
 import logs from './logs'
+import auth from './auth'
 
 const createRootReducer = (history) => {
   return combineReducers({
@@ -12,7 +13,8 @@ const createRootReducer = (history) => {
     cards,
     cart,
     rate,
-    logs
+    logs,
+    auth
   })
 }
 

@@ -96,11 +96,11 @@ const Headers = ({ seatchDeviceValue }) => {
           <div className="flex md:flex-col xl:flex-row lg:flex-col lg:gap-2 md:gap-2 md:items-center ">
             <div className="flex items-center gap-2 md:flex sm:hidden mobile:items-center mobile:hidden mobile2:hidden galaxy_fold:hidden">
               <button type="button" className="login_btn">
-                Sing In
-              </button>
-              <button type="button" className="login_btn">
                 Login
               </button>
+              <Link to="/signup" className="login_btn">
+                Sign Up
+              </Link>
             </div>
             <div className="flex items-center">
               <input
@@ -150,10 +150,10 @@ const Headers = ({ seatchDeviceValue }) => {
           <div className="flex flex-col absolute">
             <div className="flex gap-2 mb-10 justify-center">
               <button type="button" className="login_btn">
-                Sing In
+                Login
               </button>
               <button type="button" className="login_btn">
-                Login
+                Sign Up
               </button>
             </div>
             <div className="flex justify-between h-6 mb-10 mobile2:justify-between galaxy_fold:justify-start mobile2:gap-0 galaxy_fold:gap-2">
