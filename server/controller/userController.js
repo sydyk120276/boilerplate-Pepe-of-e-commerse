@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken'
 
 import User from '../mongodb/models/userModels'
 import Role from '../mongodb/models/roleModel'
+import Basket from '../mongodb/models/basketModel'
 import config from '../config'
 
 const generateJwt = (id, email, role) => {
@@ -22,7 +23,7 @@ export async function Registration(req, res) {
   const hashPassword = await bcrypt.hashSync(password, 5)
   const user = await User.create({ email, password: hashPassword, roles: [userRole.value] })
   // eslint-disable-next-line
-  // const basket = await Basket.create({ userId: user.id })
+  const basket = await Basket.create({ userId: user.id })
   const token = generateJwt(user.id, user.email, user.roles[0])
   return res.json({ token })
 }
@@ -42,7 +43,7 @@ export async function Login(req, res) {
 }
 
 export function CheckToken(req, res) {
-  const token = generateJwt(req.user._id, req.user.email, req.user.roles[0])
+  const token = generateJwt(req.user.id, req.user.email, req.user.role)
   return res.json({ token })
 }
 

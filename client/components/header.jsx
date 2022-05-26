@@ -6,6 +6,7 @@ import { sortProducts } from '../redux/reducers/cards'
 import { currensyNames, setSortToggle } from '../redux/reducers/rate'
 import CustomizedBadges from './CustomizedBadges'
 import { setIsAuth } from '../redux/reducers/auth'
+import { history } from '../redux'
 
 const Headers = ({ seatchDeviceValue }) => {
   const dispatch = useDispatch()
@@ -28,6 +29,7 @@ const Headers = ({ seatchDeviceValue }) => {
   const logOut = () => {
     dispatch(setIsAuth(false))
     localStorage.removeItem('token')
+    history.push('/')
   }
 
   return (
@@ -101,10 +103,18 @@ const Headers = ({ seatchDeviceValue }) => {
           </Link>
         </div>
         <div className="flex gap-10 mobile:gap-10 mobile2:gap-4 ">
+          <div className="flex items-center">
+            <input
+              type="text"
+              className="border-2 focus:outline-none h-8 rounded-md border-red-400 pl-4 mobile:w-44 mobile2:w-28 galaxy_fold:w-28"
+              placeholder="search . . ."
+              onChange={seatchDeviceValue}
+            />
+          </div>
           <div className="flex md:flex-col xl:flex-row lg:flex-col lg:gap-2 md:gap-2 md:items-center ">
             <div className="flex items-center gap-2 md:flex sm:hidden mobile:items-center mobile:hidden mobile2:hidden galaxy_fold:hidden">
               {!isAuth ? (
-                <Link to="/login" className="login_btn">
+                <Link to="/login" className="login_btn mr-2">
                   Sign Up
                 </Link>
               ) : (
@@ -113,27 +123,21 @@ const Headers = ({ seatchDeviceValue }) => {
                 </button>
               )}
             </div>
-            <div className="flex items-center">
-              <input
-                type="text"
-                className="border-2 focus:outline-none h-8 rounded-md border-red-400 pl-4 mobile:w-44 mobile2:w-28 galaxy_fold:w-28"
-                placeholder="search . . ."
-                onChange={seatchDeviceValue}
-              />
-            </div>
           </div>
-          <div className="flex flex-col md:flex-col mobile2:flex galaxy_fold:hidden">
-            <div className="flex">
-              <Link to="/basket" id="#order-count">
-                <CustomizedBadges />
-              </Link>
+          {isAuth && (
+            <div className="flex flex-col md:flex-col mobile2:flex galaxy_fold:hidden">
+              <div className="flex">
+                <Link to="/private" id="#order-count">
+                  <CustomizedBadges />
+                </Link>
+              </div>
+              <div className="flex font-bold  md:mr-4 sm:mr-0 md:ml-0 items-center">
+                <div className="">{(totalPrice * rates[currensyName]).toFixed(2)}</div>
+                <div className="ml-2">{currensyName}</div>
+              </div>
+              {/* <div className="ml-4 font-semibold">{totalAmount}</div> */}
             </div>
-            <div className="flex font-bold  md:mr-4 sm:mr-0 md:ml-0 items-center">
-              <div className="">{(totalPrice * rates[currensyName]).toFixed(2)}</div>
-              <div className="ml-2">{currensyName}</div>
-            </div>
-            {/* <div className="ml-4 font-semibold">{totalAmount}</div> */}
-          </div>
+          )}
           {!toggle ? (
             <button
               type="button"
@@ -160,9 +164,6 @@ const Headers = ({ seatchDeviceValue }) => {
         <div className="md:hidden sm:flex xs:flex mobile:flex w-full h-screen bg-green-400 relative mt-14 justify-center pt-10 ">
           <div className="flex flex-col absolute">
             <div className="flex gap-2 mb-10 justify-center">
-              <button type="button" className="login_btn">
-                Login
-              </button>
               <button type="button" className="login_btn">
                 Sign Up
               </button>

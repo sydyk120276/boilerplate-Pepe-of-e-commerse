@@ -6,20 +6,30 @@ import Cards from './cards'
 import Headers from './header'
 import Pages from './pages'
 import LogButton from './logButton'
-import { CheckUser } from '../redux/reducers/auth'
+// import { CheckUser, setIsAuth } from '../redux/reducers/auth'
 
 const Home = () => {
   const { list } = useSelector((s) => s.cards)
   const listId = useSelector((s) => s.cart.list)
   const [searchValue, setSearchValue] = useState('')
   const dispatch = useDispatch()
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     dispatch(getGoods())
   }, [])
+
   useEffect(() => {
-    dispatch(CheckUser())
+    setLoading(false)
   }, [])
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center">
+        <div className="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-32 w-32" />
+      </div>
+    )
+  }
 
   const seatchDeviceValue = (e) => {
     setSearchValue(e.target.value)

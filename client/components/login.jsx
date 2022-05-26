@@ -9,7 +9,8 @@ import {
   updatePasswordField,
   Registration,
   Login,
-  setIsAuth
+  setIsAuth,
+  CheckUser
 } from '../redux/reducers/auth'
 
 const LoginForm = () => {
@@ -25,14 +26,22 @@ const LoginForm = () => {
   const click = () => {
     if (isLogin) {
       dispatch(Login(email, password))
+      // if (localStorage.getItem('token')) {
+      //   dispatch(CheckUser())
+      //   dispatch(setIsAuth(true))
+      //   history.push('/private')
+      // }
     } else {
       dispatch(Registration(email, password))
-    }
-    if (localStorage.getItem('token')) {
       dispatch(setIsAuth(true))
-      history.push('/')
     }
-    dispatch(setIsAuth(true))
+
+    if (localStorage.getItem('token')) {
+      dispatch(CheckUser())
+      dispatch(setIsAuth(true))
+      history.push('/private')
+    }
+    console.log('33333333333', localStorage.getItem('token'))
   }
 
   const blurHandler = (e) => {
@@ -129,13 +138,13 @@ const LoginForm = () => {
                 </Link>
               </div>
             )}
-            <Link
-              to=""
+            <button
+              type="button"
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               onClick={click}
             >
               {isLogin ? 'Войти' : 'Регистрация'}
-            </Link>
+            </button>
           </div>
         </form>
       </div>
