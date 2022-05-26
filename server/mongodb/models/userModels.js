@@ -7,10 +7,7 @@ const userSchema = new mongoose.Schema(
       required: true,
       unique: true
     },
-    role: {
-      type: [String],
-      default: ['user']
-    },
+    roles: [{ type: String, ref: 'Role' }],
     password: {
       type: String,
       required: true

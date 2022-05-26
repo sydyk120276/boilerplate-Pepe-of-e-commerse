@@ -6,6 +6,7 @@ import Cards from './cards'
 import Headers from './header'
 import Pages from './pages'
 import LogButton from './logButton'
+import { CheckUser } from '../redux/reducers/auth'
 
 const Home = () => {
   const { list } = useSelector((s) => s.cards)
@@ -15,6 +16,9 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getGoods())
+  }, [])
+  useEffect(() => {
+    dispatch(CheckUser())
   }, [])
 
   const seatchDeviceValue = (e) => {

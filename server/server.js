@@ -4,16 +4,23 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import favicon from 'serve-favicon'
 import io from 'socket.io'
-import passport from 'passport'
-import jwt from 'jsonwebtoken'
-import bcrypt from 'bcryptjs'
+// import passport from 'passport'
+// import jwt from 'jsonwebtoken'
+// import bcrypt from 'bcryptjs'
 
 import config from './config'
 import mongooseService from './services/mongoose'
-import passportJWT from './services/passport'
+// import passportJWT from './services/passport'
 import foodModel from './mongodb/models/foodModel'
-import User from './mongodb/models/userModels'
+// import User from './mongodb/models/userModels'
 import { getRates, sortProductsList, getProductsFunc } from './common'
+import {
+  Registration,
+  Login,
+  CheckToken,
+  Users
+} from './controller/userController'
+import AuthMiddleware from './middleware/AuthMiddleware'
 
 import Html from '../client/html'
 
@@ -36,13 +43,11 @@ const PORT = config.port
 
 const middleware = [
   cors(),
-  passport.initialize(),
   cookieParser(),
   express.json({ limit: '50kb' }),
   express.static(resolve(__dirname, '../dist')),
   favicon(`${__dirname}/public/favicon.ico`)
 ]
-passport.use('jwt', passportJWT.jwt)
 
 middleware.forEach((it) => server.use(it))
 
@@ -103,43 +108,12 @@ server.get('/api/v1/rates', async (req, res) => {
   res.json(currency)
 })
 
-const generateJwt = (id, email, role) => {
-  return jwt.sign({ id, email, role }, process.env.SECRET_KEY, { expiresIn: '24h' })
-}
+// userRouter
 
-server.post('/api/v1/auth', async (req, res) => {
-  const { email, password, role } = req.body
-  console.log(req.body)
-  if (!email || !password) {
-    return res.status(400).json({ message: 'Некорректный email или password' })
-  }
-  const candidate = await User.findOne({ email })
-  if (candidate) {
-    return res.status(400).json({ message: 'Пользователь с таким именем уже существует' })
-  }
-  const hashPassword = await bcrypt.hash(password, 5)
-  const user = await User.create({ email, role, password: hashPassword })
-  // eslint-disable-next-line
-  // const basket = await Basket.create({ userId: user.id })
-  const token = generateJwt(user.id, user.email, user.role)
-  return res.json({ token })
-})
-
-server.get('/api/v1/auth', async (req, res) => {
-  try {
-    const jwtUser = jwt.verify(req.cookies.token, config.secret)
-    const user = await User.findById(jwtUser.uid)
-
-    const payload = { uid: user.id }
-    const token = jwt.sign(payload, config.secret, { expiresIn: '48h' })
-    delete user.password
-    res.cookie('token', token, { maxAge: 1000 * 60 * 60 * 48 })
-    res.json({ status: 'ok', token, user })
-  } catch (err) {
-    console.log(err)
-    res.json({ status: 'error', err })
-  }
-})
+server.post('/api/v1/user/registration', Registration)
+server.post('/api/v1/user/login', Login)
+server.get('/api/v1/user/auth', AuthMiddleware, CheckToken)
+server.get('/api/v1/users', Users)
 
 // function sortProductsList(arrayOfProducts, sortType, direction) {
 //   switch (sortType) {

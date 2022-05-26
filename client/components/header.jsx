@@ -5,11 +5,14 @@ import { Link } from 'react-router-dom'
 import { sortProducts } from '../redux/reducers/cards'
 import { currensyNames, setSortToggle } from '../redux/reducers/rate'
 import CustomizedBadges from './CustomizedBadges'
+import { setIsAuth } from '../redux/reducers/auth'
 
 const Headers = ({ seatchDeviceValue }) => {
   const dispatch = useDispatch()
   const [toggle, setToggle] = useState(false)
   const { currensyName, rates, sort } = useSelector((s) => s.rate)
+  const { isAuth } = useSelector((s) => s.auth)
+  console.log('isAuth', isAuth)
   const { totalPrice } = useSelector((s) => s.cart)
 
   // const ratesButton = (name) => {
@@ -20,6 +23,11 @@ const Headers = ({ seatchDeviceValue }) => {
   const sortByType = (sortType) => {
     dispatch(setSortToggle(sortType))
     dispatch(sortProducts(sortType, sort[sortType]))
+  }
+
+  const logOut = () => {
+    dispatch(setIsAuth(false))
+    localStorage.removeItem('token')
   }
 
   return (
@@ -95,12 +103,15 @@ const Headers = ({ seatchDeviceValue }) => {
         <div className="flex gap-10 mobile:gap-10 mobile2:gap-4 ">
           <div className="flex md:flex-col xl:flex-row lg:flex-col lg:gap-2 md:gap-2 md:items-center ">
             <div className="flex items-center gap-2 md:flex sm:hidden mobile:items-center mobile:hidden mobile2:hidden galaxy_fold:hidden">
-              <button type="button" className="login_btn">
-                Login
-              </button>
-              <Link to="/signup" className="login_btn">
-                Sign Up
-              </Link>
+              {!isAuth ? (
+                <Link to="/login" className="login_btn">
+                  Sign Up
+                </Link>
+              ) : (
+                <button type="button" className="login_btn" onClick={logOut}>
+                  Exit
+                </button>
+              )}
             </div>
             <div className="flex items-center">
               <input

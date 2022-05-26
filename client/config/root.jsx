@@ -12,20 +12,20 @@ import PrivateComponent from '../components/pivate'
 import Home from '../components/home'
 import Basket from '../components/basket'
 import Logs from '../components/logs'
-import LoginForm from '../components/signUp'
+import LoginForm from '../components/login'
 
 const OnlyAnonymousRoute = ({ component: Component, ...rest }) => {
-  const { user, token } = useSelector((s) => s.auth)
+  const { user } = useSelector((s) => s.auth)
   const func = (props) => {
-    return !!user && !!token ? <Redirect to="/channels" /> : <Component {...props} />
+    return !user ? <Redirect to="/login" /> : <Component {...props} />
   }
   return <Route {...rest} render={func} />
 }
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  const { user, token } = useSelector((s) => s.auth)
+  const { user } = useSelector((s) => s.auth)
   const func = (props) => {
-    return !!user && !!token ? <Component {...props} /> : <Redirect to="/login" />
+    return !user ? <Component {...props} /> : <Redirect to="/private" />
   }
   return <Route {...rest} render={func} />
 }
@@ -39,8 +39,8 @@ const Root = () => {
             <Route exact path="/" component={Home} />
             <Route exact path="/basket" component={Basket} />
             <Route exact path="/logs" component={Logs} />
-            <Route exact path="/signup" component={LoginForm} />
-            <OnlyAnonymousRoute exact path="/login" component={() => <Home />} />
+            <OnlyAnonymousRoute exact path="/login" component={() => <LoginForm />} />
+            <OnlyAnonymousRoute exact path="/registration" component={() => <LoginForm />} />
             <PrivateRoute exact path="/private" component={() => <PrivateComponent />} />
           </Switch>
         </Startup>

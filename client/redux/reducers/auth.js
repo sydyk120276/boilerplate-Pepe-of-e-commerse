@@ -1,77 +1,110 @@
-import Cookies from 'universal-cookie'
-import { history } from '..'
+import jwt_decode from 'jwt-decode'
+import { $host, $authHost } from '../../components/http'
 
-const UPDATE_EMAIL = '@auth/UPDATE_EMAIL'
-const UPDATE_PASSWORD = '@auth/UPDATE_PASSWORD'
-const LOGIN = '@auth/LOGIN'
-
-const cookies = new Cookies()
+const SET_AUTH = '@login/SET_AUTH'
+const SET_USER = '@login/SET_USER'
+const GET_USER = '@login/GET_USER'
+const UPDATE_LOGIN = 'UPDATE_LOGIN'
+const UPDATE_PASSWORD = 'UPDATE_PASSWORD'
 
 const initialState = {
+  isAuth: false,
+  user: {},
+  users: [],
   email: '',
-  password: '',
-  token: cookies.get('token'),
-  user: {}
+  password: ''
 }
 
-export default (state = initialState, action) => {
+export default (state = initialState, action = '') => {
   switch (action.type) {
-    case UPDATE_EMAIL: {
+    case SET_AUTH: {
+      return {
+        ...state,
+        isAuth: action.payload
+      }
+    }
+    case SET_USER: {
+      return {
+        ...state,
+        user: action.payload
+      }
+    }
+    case GET_USER: {
+      return {
+        ...state,
+        users: action.payload
+      }
+    }
+    case UPDATE_LOGIN: {
       return { ...state, email: action.email }
     }
     case UPDATE_PASSWORD: {
       return { ...state, password: action.password }
-    }
-    case LOGIN: {
-      return {
-        ...state,
-        token: action.token,
-        password: '',
-        user: action.user
-      }
     }
     default:
       return state
   }
 }
 
+export function setIsAuth(bool) {
+  return { type: SET_AUTH, payload: bool }
+}
+
+export function getUsers() {
+  return (dispatch) => {
+    axios.get('/api/v1/users').then(({ data }) => {
+      dispatch({ type: GET_USER, payload: data })
+    })
+  }
+}
+
+export function Registration(email, password) {
+  return (dispatch) => {
+    $host
+      .post('/api/v1/user/registration', { email, password, role: 'USER' })
+      .then(({ data }) => {
+        localStorage.setItem('token', data.token)
+        const user = jwt_decode(data.token)
+        dispatch({ type: SET_USER, payload: user })
+      })
+      .catch((e) => {
+        alert(e.response.data.message)
+      })
+  }
+}
+export function Login(email, password) {
+  return (dispatch) => {
+    $host
+      .post('/api/v1/user/login', { email, password })
+      .then(({ data }) => {
+        localStorage.setItem('token', data.token)
+        const user = jwt_decode(data.token)
+        dispatch({ type: SET_USER, payload: user })
+      })
+      .catch((e) => {
+        alert(e.response.data.message)
+      })
+  }
+}
+export function CheckUser() {
+  return (dispatch) => {
+    $authHost
+      .get('/api/v1/user/auth')
+      .then(({ data }) => {
+        localStorage.setItem('token', data.token)
+        const user = jwt_decode(data.token)
+        dispatch({ type: SET_USER, payload: user })
+      })
+      .catch((e) => {
+        console.log('hjhjkhkjhkhkj', e)
+      })
+  }
+}
+
 export function updateEmailField(email) {
-  return { type: UPDATE_EMAIL, email }
+  return { type: UPDATE_LOGIN, email }
 }
 
 export function updatePasswordField(password) {
   return { type: UPDATE_PASSWORD, password }
-}
-
-export function signIn() {
-  return (dispatch, getState) => {
-    const { email, password } = getState().auth
-    fetch('/api/v1/auth', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        email,
-        password
-      })
-    })
-      .then((r) => r.json())
-      .then((data) => {
-        console.log(data)
-        dispatch({ type: LOGIN, token: data.token, user: data.user })
-        history.push('/private')
-      })
-  }
-}
-
-export function trySignIn() {
-  return (dispatch) => {
-    fetch('/api/v1/auth')
-      .then((r) => r.json())
-      .then((data) => {
-        dispatch({ type: LOGIN, token: data.token, user: data.user })
-        history.push('/private')
-      })
-  }
 }
