@@ -1,4 +1,5 @@
 import jwt_decode from 'jwt-decode'
+import axios from 'axios'
 import { $host, $authHost } from '../../components/http'
 
 const SET_AUTH = '@login/SET_AUTH'
@@ -74,7 +75,7 @@ export function Registration(email, password) {
 }
 export function Login(email, password) {
   return (dispatch) => {
-    $host
+    axios
       .post('/api/v1/user/login', { email, password })
       .then(({ data }) => {
         localStorage.setItem('token', data.token)
@@ -93,6 +94,7 @@ export function CheckUser() {
       .then(({ data }) => {
         localStorage.setItem('token', data.token)
         const user = jwt_decode(data.token)
+
         dispatch({ type: SET_USER, payload: user })
       })
       .catch((e) => {
