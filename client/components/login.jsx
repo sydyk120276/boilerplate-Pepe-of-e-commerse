@@ -26,11 +26,6 @@ const LoginForm = () => {
   const click = () => {
     if (isLogin) {
       dispatch(Login(email, password))
-      // if (localStorage.getItem('token')) {
-      //   dispatch(CheckUser())
-      //   dispatch(setIsAuth(true))
-      //   history.push('/private')
-      // }
     } else {
       dispatch(Registration(email, password))
       dispatch(setIsAuth(true))
