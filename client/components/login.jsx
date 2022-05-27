@@ -26,17 +26,16 @@ const LoginForm = () => {
   const click = () => {
     if (isLogin) {
       dispatch(Login(email, password))
+      dispatch(CheckUser())
+      if (localStorage.getItem('token')) {
+        dispatch(setIsAuth(true))
+        history.push('/private')
+      }
     } else {
       dispatch(Registration(email, password))
       dispatch(setIsAuth(true))
-    }
-
-    if (localStorage.getItem('token')) {
-      dispatch(CheckUser())
-      dispatch(setIsAuth(true))
       history.push('/private')
     }
-    console.log('33333333333', localStorage.getItem('token'))
   }
 
   const blurHandler = (e) => {
@@ -54,7 +53,9 @@ const LoginForm = () => {
 
   const emailHandler = (e) => {
     dispatch(updateEmailField(e.target.value))
-    const re = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
+    // eslint-disable-next-line
+    const re =
+      /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
     if (!re.test(String(e.target.value).toLowerCase())) {
       setEmailError('Некорректный емейл')
     } else {
