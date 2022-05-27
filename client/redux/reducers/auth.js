@@ -1,6 +1,6 @@
 import jwt_decode from 'jwt-decode'
 import axios from 'axios'
-import { $host, $authHost } from '../../components/http'
+// import { $host, $authHost } from '../../components/http'
 
 const SET_AUTH = '@login/SET_AUTH'
 const SET_USER = '@login/SET_USER'
@@ -61,7 +61,7 @@ export function getUsers() {
 
 export function Registration(email, password) {
   return (dispatch) => {
-    $host
+    axios
       .post('/api/v1/user/registration', { email, password, role: 'USER' })
       .then(({ data }) => {
         localStorage.setItem('token', data.token)
@@ -89,7 +89,7 @@ export function Login(email, password) {
 }
 export function CheckUser() {
   return (dispatch) => {
-    $authHost
+    axios
       .get('/api/v1/user/auth')
       .then(({ data }) => {
         localStorage.setItem('token', data.token)
