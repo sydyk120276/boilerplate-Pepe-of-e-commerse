@@ -1,5 +1,7 @@
 import jwt_decode from 'jwt-decode'
 import axios from 'axios'
+
+import { history } from '..'
 // import { $host, $authHost } from '../../components/http'
 
 const SET_AUTH = '@login/SET_AUTH'
@@ -81,6 +83,10 @@ export function Login(email, password) {
         localStorage.setItem('token', data.token)
         const user = jwt_decode(data.token)
         dispatch({ type: SET_USER, payload: user })
+        if (localStorage.getItem('token')) {
+          dispatch({ type: SET_AUTH, payload: true })
+          history.push('/private')
+        }
       })
       .catch((e) => {
         alert(e.response.data.message)

@@ -27,10 +27,6 @@ const LoginForm = () => {
     if (isLogin) {
       dispatch(Login(email, password))
       dispatch(CheckUser())
-      if (localStorage.getItem('token')) {
-        dispatch(setIsAuth(true))
-        history.push('/private')
-      }
     } else {
       dispatch(Registration(email, password))
       dispatch(setIsAuth(true))
